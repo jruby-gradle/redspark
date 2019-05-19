@@ -1,0 +1,24 @@
+plugins {
+    id 'java'
+    id 'com.github.jruby-gradle.base' version '1.7.0'
+    id 'com.github.jruby-gradle.jar' version '1.7.0'
+}
+
+group 'de.brokenco'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    jrubyJar 'org.apache.spark:spark-sql_2.12:[2.4.3,3.0)'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+jrubyJar {
+    initScript "${projectDir}/simple.rb"
+}

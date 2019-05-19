@@ -1,0 +1,5 @@
+= Redspark
+
+Redspark is a library to make it easy to build and deploy
+link:https://spark.apache.org[Spark]
+applications in Ruby.
