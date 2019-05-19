@@ -2,16 +2,19 @@
 
 java_import 'org.apache.spark.sql.SparkSession'
 
-class SimpleApp
-    def main(args)
-        logfile = 'build.gradle'
-        spark = SparkSession.builder.appName('Simple Application').getoOrCreate()
-        data = spark.read.textFile(logfile).cache()
+puts "LOADING THINGS"
 
-        #val numAs = logData.filter(line => line.contains("a")).count()
-        #val numBs = logData.filter(line => line.contains("b")).count()
+logfile = 'build.gradle'
+spark = SparkSession.builder.appName('Simple Application').getOrCreate
+data = spark.read.textFile(logfile).cache()
 
-        puts "Hello World"
-        spark.stop()
-    end
-end
+alphas = data.filter { |line| line.contains('a') }.count
+betas = data.filter { |line| line.contains('b') }.count
+
+puts
+puts "Hello from Ruby, we read #{logfile}"
+puts " and found #{alphas} 'a' characters"
+puts " and #{betas} 'b' characters"
+puts 
+
+spark.stop()
