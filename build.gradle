@@ -15,7 +15,8 @@ repositories {
 
 configurations {
     jrubyJar.extendsFrom compile
-    rspec
+    // THe RSpec configuration needs our full classpath
+    rspec.extendsFrom compile
 }
 
 dependencies {
