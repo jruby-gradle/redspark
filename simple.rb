@@ -2,14 +2,17 @@
 
 java_import 'org.apache.spark.sql.SparkSession'
 
-puts "LOADING THINGS"
-
 logfile = 'build.gradle'
 spark = SparkSession.builder.appName('Simple Application').getOrCreate
 data = spark.read.textFile(logfile).cache()
 
-alphas = data.filter { |line| line.contains('a') }.count
-betas = data.filter { |line| line.contains('b') }.count
+alphas = data.distinct
+puts "about to filter"
+betas = data.filter do |line|
+  puts 'filtering..'
+  line.contains 'b'
+end.count
+puts "filtered"
 
 puts
 puts "Hello from Ruby, we read #{logfile}"
