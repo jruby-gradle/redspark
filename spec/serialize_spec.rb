@@ -1,9 +1,7 @@
 require 'rspec'
 
-
 java_import 'org.apache.spark.sql.SparkSession'
 
-#
 # Inspired by test code found here:
 #  http://codewicca.org/the-inevitable-task-not-serializable-sparkexception
 
@@ -12,7 +10,7 @@ describe 'Serializing Ruby for Spark' do
     let(:spark) do
       SparkSession
         .builder
-        .config('spark.serializer', 'org.apache.spark.serializer.KryoSerializer')
+        .config('spark.serializer', 'com.github.jrubygradle.redspark.RubySerializer')
         .master('local[*]')
         .appName('rspec')
         .getOrCreate
@@ -24,9 +22,8 @@ describe 'Serializing Ruby for Spark' do
 
     it 'should serialize and execute properly' do
       data = spark.read.textFile(__FILE__).cache()
-
       expect {
-        data.filter { |line| line.contains('a') }.count
+        data.filter { |line| line.contains('a').to_java }.count
       }.not_to raise_error
     end
   end

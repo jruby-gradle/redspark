@@ -1,4 +1,5 @@
 plugins {
+    id 'idea'
     id 'java'
     id 'com.github.jruby-gradle.base' version '1.7.0'
     id 'com.github.jruby-gradle.jar' version '1.7.0'
@@ -34,6 +35,11 @@ jrubyJar {
 task spec(type: JRubyExec) {
     group 'Redspark'
     description 'Execute RSpec against spec/**/*.rb'
+
+    dependsOn 'compileJava'
+    classpath "${buildDir}/classes/java/main", configurations.compile.asPath
     configuration 'rspec'
+
     script 'rspec'
+    inputs.dir 'spec'
 }
