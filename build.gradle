@@ -28,7 +28,7 @@ dependencies {
 jrubyJar {
     group 'Redspark'
     description 'Package up a jar for Spark execution'
-    dependsOn compileJava
+    dependsOn compileJava, jar
     initScript "${projectDir}/simple.rb"
 }
 

@@ -10,7 +10,6 @@ describe 'Serializing Ruby for Spark' do
     let(:spark) do
       SparkSession
         .builder
-        .config('spark.serializer', 'com.github.jrubygradle.redspark.RubySerializer')
         .master('local[*]')
         .appName('rspec')
         .getOrCreate
